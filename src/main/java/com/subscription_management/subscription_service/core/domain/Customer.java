@@ -3,7 +3,7 @@ package com.subscription_management.subscription_service.core.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+
 @NoArgsConstructor
 public class Customer {
 
@@ -17,5 +17,21 @@ public class Customer {
         this.name = name;
         this.email = email;
         this.document = document;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDocument() {
+        return document;
     }
 }
