@@ -1,13 +1,12 @@
 package com.subscription_management.subscription_service.core.domain;
 
+import com.subscription_management.subscription_service.core.domain.exception.CustomerNotFoundException;
 import com.subscription_management.subscription_service.core.domain.exception.InvalidSubscriptionOperationException;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Getter
 @NoArgsConstructor
 public class Subscription {
 
@@ -21,13 +20,23 @@ public class Subscription {
     private BigDecimal lastPaymentAmount;
     private String paymentMethod;
 
-    public Subscription(SubscriptionStatus status, Long id, Customer customer, Plan plan,
+    public Subscription(Customer customer, Plan plan){
+        this.id = null;
+        this.customer = customer;
+        this.plan = plan;
+        this.status = SubscriptionStatus.ACTIVE;
+        this.startDate = LocalDateTime.now();
+        this.endDate = calculateEndDate(plan);
+        this.nextBillingDate = calculateNextBillingDate();
+    }
+
+    public Subscription(Long id, Customer customer, Plan plan, SubscriptionStatus status,
                         LocalDateTime startDate, LocalDateTime endDate, LocalDateTime nextBillingDate,
                         BigDecimal lastPaymentAmount, String paymentMethod) {
-        this.status = status;
         this.id = id;
         this.customer = customer;
         this.plan = plan;
+        this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
         this.nextBillingDate = nextBillingDate;
@@ -86,7 +95,27 @@ public class Subscription {
         return plan;
     }
 
+    public SubscriptionStatus getStatus() {
+        return status;
+    }
+
     public LocalDateTime getStartDate() {
         return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public LocalDateTime getNextBillingDate() {
+        return nextBillingDate;
+    }
+
+    public BigDecimal getLastPaymentAmount() {
+        return lastPaymentAmount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 }
