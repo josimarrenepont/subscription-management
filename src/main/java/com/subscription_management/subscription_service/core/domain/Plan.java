@@ -1,11 +1,7 @@
 package com.subscription_management.subscription_service.core.domain;
 
-
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 
-@NoArgsConstructor
 public class Plan {
 
     private final Long id;

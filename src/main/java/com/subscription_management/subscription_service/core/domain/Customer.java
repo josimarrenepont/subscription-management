@@ -3,8 +3,7 @@ package com.subscription_management.subscription_service.core.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
-@NoArgsConstructor
+@Getter
 public class Customer {
 
     private final Long id;

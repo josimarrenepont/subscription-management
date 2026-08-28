@@ -1,13 +1,9 @@
 package com.subscription_management.subscription_service.core.domain;
-
-import com.subscription_management.subscription_service.core.domain.exception.CustomerNotFoundException;
 import com.subscription_management.subscription_service.core.domain.exception.InvalidSubscriptionOperationException;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
 public class Subscription {
 
     private final Long id;
