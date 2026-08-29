@@ -8,4 +8,5 @@ public interface PlanStoragePort {
     Plan save(Plan plan);
     Optional<Plan> findById(Long id);
     void delete(Long id);
+    boolean existsByName(String name);
 }
