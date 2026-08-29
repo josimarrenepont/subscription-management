@@ -1,6 +1,7 @@
 package com.subscription_management.subscription_service.core.usecase;
 
 import com.subscription_management.subscription_service.core.domain.Plan;
+import com.subscription_management.subscription_service.core.domain.exception.PlanAlreadyExistsException;
 import com.subscription_management.subscription_service.core.port.PlanStoragePort;
 import com.subscription_management.subscription_service.core.usecase.model.CreatePlanCommand;
 import com.subscription_management.subscription_service.core.usecase.model.PlanResponse;
@@ -15,7 +16,7 @@ public class CreatePlanUseCase {
 
     public PlanResponse execute(CreatePlanCommand command){
         if(planPort.existsByName(command.name())){
-            throw new IllegalArgumentException("Plan name already exists");
+            throw new PlanAlreadyExistsException(command.name());
         }
       Plan plan = new Plan(
               null,
