@@ -14,7 +14,8 @@ public record SubscriptionResponse(
         LocalDateTime startDate,
         LocalDateTime endDate,
         LocalDateTime nextBillingDate,
-        BigDecimal lastPaymentAmount
+        BigDecimal lastPaymentAmount,
+        String paymentMethod
 ) {
     public static SubscriptionResponse fromDomain(Subscription subscription){
         return new SubscriptionResponse(
@@ -25,7 +26,8 @@ public record SubscriptionResponse(
                 subscription.getStartDate(),
                 subscription.getEndDate(),
                 subscription.getNextBillingDate(),
-                subscription.getLastPaymentAmount()
+                subscription.getLastPaymentAmount(),
+                subscription.getPaymentMethod()
         );
     }
 }

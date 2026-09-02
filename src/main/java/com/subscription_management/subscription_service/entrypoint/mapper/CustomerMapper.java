@@ -7,11 +7,11 @@ import com.subscription_management.subscription_service.entrypoint.dto.CustomerR
 
 public class CustomerMapper {
 
-    public static CreateCustomerCommand toCommand(CustomerRequestDTO resquest){
+    public static CreateCustomerCommand toCommand(CustomerRequestDTO request){
         return new CreateCustomerCommand(
-                resquest.name(),
-                resquest.email(),
-                resquest.document()
+                request.name(),
+                request.email(),
+                request.document()
 
         );
     }

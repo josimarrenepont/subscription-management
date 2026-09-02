@@ -1,6 +1,5 @@
 package com.subscription_management.subscription_service.entrypoint.controller;
 
-import com.subscription_management.subscription_service.core.usecase.CancelSubscriptionUseCase;
 import com.subscription_management.subscription_service.core.usecase.CreateCustomerUseCase;
 import com.subscription_management.subscription_service.core.usecase.FindCustomerUseCase;
 import com.subscription_management.subscription_service.core.usecase.ListCustomersUseCase;
