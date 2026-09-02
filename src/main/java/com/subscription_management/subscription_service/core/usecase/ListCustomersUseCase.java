@@ -1,6 +1,5 @@
 package com.subscription_management.subscription_service.core.usecase;
 
-import com.subscription_management.subscription_service.core.domain.Customer;
 import com.subscription_management.subscription_service.core.port.CustomerStoragePort;
 import com.subscription_management.subscription_service.core.usecase.model.CustomerResponse;
 
