@@ -7,14 +7,14 @@ import com.subscription_management.subscription_service.core.usecase.model.PlanR
 
 public class FindPlanUseCase {
 
-    private final PlanStoragePort planStoragePort;
+    private final PlanStoragePort planPort;
 
-    public FindPlanUseCase(PlanStoragePort planStoragePort) {
-        this.planStoragePort = planStoragePort;
+    public FindPlanUseCase(PlanStoragePort planPort) {
+        this.planPort = planPort;
     }
 
     public PlanResponse execute(Long planId){
-        Plan plan = planStoragePort.findById(planId)
+        Plan plan = planPort.findById(planId)
                 .orElseThrow(() -> new PlanNotFoundException(planId));
 
         return PlanResponse.fromDomain(plan);

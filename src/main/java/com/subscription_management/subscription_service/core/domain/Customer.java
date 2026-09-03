@@ -1,9 +1,8 @@
 package com.subscription_management.subscription_service.core.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Getter
+import java.util.Objects;
+
 public class Customer {
 
     private final Long id;
@@ -32,5 +31,17 @@ public class Customer {
 
     public String getDocument() {
         return document;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Customer customer)) return false;
+        return Objects.equals(getId(), customer.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
     }
 }
