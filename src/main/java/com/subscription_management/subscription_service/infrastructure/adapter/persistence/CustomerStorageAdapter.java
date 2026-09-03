@@ -2,12 +2,13 @@ package com.subscription_management.subscription_service.infrastructure.adapter.
 
 import com.subscription_management.subscription_service.core.domain.Customer;
 import com.subscription_management.subscription_service.core.port.CustomerStoragePort;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class CustomerStorageAdapter implements CustomerStoragePort {
 
     @Override
