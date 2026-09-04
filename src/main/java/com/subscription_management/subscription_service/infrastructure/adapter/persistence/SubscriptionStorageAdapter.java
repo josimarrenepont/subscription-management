@@ -8,7 +8,6 @@ import com.subscription_management.subscription_service.infrastructure.adapter.p
 import com.subscription_management.subscription_service.infrastructure.adapter.repository.CustomerRepository;
 import com.subscription_management.subscription_service.infrastructure.adapter.repository.PlanRepository;
 import com.subscription_management.subscription_service.infrastructure.adapter.repository.SubscriptionRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -29,10 +28,10 @@ public class SubscriptionStorageAdapter implements SubscriptionStoragePort {
     @Override
     public Subscription save(Subscription subscription) {
         CustomerEntity customerEntity = customerRepository.findById(subscription.getCustomer().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found ID"));
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
 
         PlanEntity planEntity = planRepository.findById(subscription.getPlan().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Plan not found ID"));
+                .orElseThrow(() -> new IllegalArgumentException("Plan not found"));
 
         var entityToSave = SubscriptionPersistenceMapper.toEntity(subscription, customerEntity, planEntity);
         var savedEntity = subscriptionRepository.save(entityToSave);

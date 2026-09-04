@@ -4,4 +4,5 @@ import com.subscription_management.subscription_service.infrastructure.adapter.p
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlanRepository extends JpaRepository<PlanEntity, Long> {
+    boolean existsByName(String name);
 }
