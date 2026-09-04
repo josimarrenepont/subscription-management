@@ -1,17 +1,12 @@
 package com.subscription_management.subscription_service.infrastructure.adapter.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Entity
 @Table(name = "tb_customers")
-@Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class CustomerEntity {
 
     @Id
@@ -24,4 +19,27 @@ public class CustomerEntity {
     private String email;
 
     private String document;
+
+    public CustomerEntity(Long id, String name, String email, String document) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.document = document;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDocument() {
+        return document;
+    }
 }
