@@ -31,4 +31,12 @@ public class PlanController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlanResponseDTO> findById(@PathVariable Long id){
+        PlanResponse response = findPlanUseCase.execute(id);
+        PlanResponseDTO dto = PlanMapper.toDTO(response);
+
+        return ResponseEntity.ok(dto);
+    }
 }

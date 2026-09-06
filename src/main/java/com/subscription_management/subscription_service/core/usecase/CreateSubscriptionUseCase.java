@@ -35,7 +35,11 @@ public class CreateSubscriptionUseCase {
         Plan plan = planPort.findById(command.planId())
                 .orElseThrow(() -> new PlanNotFoundException(command.planId()));
 
-        Subscription subscription = new Subscription(customer, plan);
+        Subscription subscription = new Subscription(
+                customer,
+                plan,
+                plan.getPrice(),
+                command.paymentMethod());
 
         boolean paymentSuccess = paymentGateway.charge(
                 plan.getPrice(),

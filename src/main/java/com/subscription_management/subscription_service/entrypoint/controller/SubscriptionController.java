@@ -8,10 +8,7 @@ import com.subscription_management.subscription_service.entrypoint.dto.Subscript
 import com.subscription_management.subscription_service.entrypoint.mapper.SubscriptionMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/subscriptions")
@@ -41,5 +38,15 @@ public class SubscriptionController {
         SubscriptionResponseDTO dto = SubscriptionMapper.toDTO(response);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SubscriptionResponseDTO> findById(@PathVariable Long id){
+
+        SubscriptionResponse response = findSubscriptionUseCase.execute(id);
+        SubscriptionResponseDTO dto = SubscriptionMapper.toDTO(response);
+
+        return ResponseEntity.ok(dto);
+
     }
 }

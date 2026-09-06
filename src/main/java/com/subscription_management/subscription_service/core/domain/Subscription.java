@@ -16,10 +16,12 @@ public class Subscription {
     private BigDecimal lastPaymentAmount;
     private String paymentMethod;
 
-    public Subscription(Customer customer, Plan plan){
+    public Subscription(Customer customer, Plan plan, BigDecimal price, String paymentMethod){
         this.id = null;
         this.customer = customer;
         this.plan = plan;
+        this.lastPaymentAmount = price;
+        this.paymentMethod = paymentMethod;
         this.status = SubscriptionStatus.ACTIVE;
         this.startDate = LocalDateTime.now();
         this.endDate = calculateEndDate(plan);
