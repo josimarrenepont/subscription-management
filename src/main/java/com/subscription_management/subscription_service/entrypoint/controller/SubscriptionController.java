@@ -3,6 +3,7 @@ package com.subscription_management.subscription_service.entrypoint.controller;
 import com.subscription_management.subscription_service.core.usecase.*;
 import com.subscription_management.subscription_service.core.usecase.model.CancelSubscriptionCommand;
 import com.subscription_management.subscription_service.core.usecase.model.CreateSubscriptionCommand;
+import com.subscription_management.subscription_service.core.usecase.model.RenewSubscriptionCommand;
 import com.subscription_management.subscription_service.core.usecase.model.SubscriptionResponse;
 import com.subscription_management.subscription_service.entrypoint.dto.SubscriptionRequestDTO;
 import com.subscription_management.subscription_service.entrypoint.dto.SubscriptionResponseDTO;
@@ -52,10 +53,19 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("/{subscriptionId}")
-    public ResponseEntity<SubscriptionResponseDTO> cancelSubscription(@PathVariable Long subscriptionId){
+    public ResponseEntity<Void> cancelSubscription(@PathVariable Long subscriptionId){
 
         cancelSubscriptionUseCase.execute(new CancelSubscriptionCommand(subscriptionId));
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/renew")
+    public ResponseEntity<SubscriptionResponseDTO> renewSubscription(@PathVariable Long id){
+
+        SubscriptionResponse response = renewSubscriptionUseCase.execute(new RenewSubscriptionCommand(id));
+        SubscriptionResponseDTO dto = SubscriptionMapper.toDTO(response);
+
+        return ResponseEntity.ok(dto);
     }
 }
