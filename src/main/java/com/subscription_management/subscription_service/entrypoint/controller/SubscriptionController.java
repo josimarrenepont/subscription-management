@@ -1,6 +1,7 @@
 package com.subscription_management.subscription_service.entrypoint.controller;
 
 import com.subscription_management.subscription_service.core.usecase.*;
+import com.subscription_management.subscription_service.core.usecase.model.CancelSubscriptionCommand;
 import com.subscription_management.subscription_service.core.usecase.model.CreateSubscriptionCommand;
 import com.subscription_management.subscription_service.core.usecase.model.SubscriptionResponse;
 import com.subscription_management.subscription_service.entrypoint.dto.SubscriptionRequestDTO;
@@ -48,5 +49,13 @@ public class SubscriptionController {
 
         return ResponseEntity.ok(dto);
 
+    }
+
+    @DeleteMapping("/{subscriptionId}")
+    public ResponseEntity<SubscriptionResponseDTO> cancelSubscription(@PathVariable Long subscriptionId){
+
+        cancelSubscriptionUseCase.execute(new CancelSubscriptionCommand(subscriptionId));
+
+        return ResponseEntity.noContent().build();
     }
 }
