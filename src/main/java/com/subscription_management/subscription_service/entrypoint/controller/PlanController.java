@@ -2,6 +2,7 @@ package com.subscription_management.subscription_service.entrypoint.controller;
 
 import com.subscription_management.subscription_service.core.usecase.CreatePlanUseCase;
 import com.subscription_management.subscription_service.core.usecase.FindPlanUseCase;
+import com.subscription_management.subscription_service.core.usecase.ListPlanUseCase;
 import com.subscription_management.subscription_service.core.usecase.model.CreatePlanCommand;
 import com.subscription_management.subscription_service.core.usecase.model.PlanResponse;
 import com.subscription_management.subscription_service.entrypoint.dto.PlanRequestDTO;
@@ -11,16 +12,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("api/v1/plans")
 public class PlanController {
 
     private final CreatePlanUseCase createPlanUseCase;
     private final FindPlanUseCase findPlanUseCase;
+    private final ListPlanUseCase listPlanUseCase;
 
-    public PlanController(CreatePlanUseCase createPlanUseCase, FindPlanUseCase findPlanUseCase) {
+    public PlanController(CreatePlanUseCase createPlanUseCase, FindPlanUseCase findPlanUseCase, ListPlanUseCase listPlanUseCase) {
         this.createPlanUseCase = createPlanUseCase;
         this.findPlanUseCase = findPlanUseCase;
+        this.listPlanUseCase = listPlanUseCase;
     }
 
     @PostMapping
@@ -38,5 +44,15 @@ public class PlanController {
         PlanResponseDTO dto = PlanMapper.toDTO(response);
 
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PlanResponseDTO>> findAll(){
+
+       List<PlanResponse> responses = listPlanUseCase.execute();
+       List<PlanResponseDTO> dtos = responses.stream().map(PlanMapper::toDTO)
+               .collect(Collectors.toList());
+
+       return ResponseEntity.ok(dtos);
     }
 }
