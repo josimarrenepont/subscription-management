@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("api/v1/customers")
 public class CustomerController {
@@ -43,6 +46,15 @@ public class CustomerController {
         CustomerResponseDTO dto = CustomerMapper.toDTO(response);
 
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CustomerResponseDTO>> findAll(){
+        List<CustomerResponse> responses = listCustomersUseCase.execute();
+        List<CustomerResponseDTO> dtos = responses.stream().map(CustomerMapper::toDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
     }
 
 }
