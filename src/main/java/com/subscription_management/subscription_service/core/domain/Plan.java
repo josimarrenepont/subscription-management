@@ -1,6 +1,7 @@
 package com.subscription_management.subscription_service.core.domain;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Plan {
 
@@ -43,5 +44,17 @@ public class Plan {
 
     public int getDurationMonths() {
         return durationMonths;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Plan plan)) return false;
+        return Objects.equals(getId(), plan.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
     }
 }

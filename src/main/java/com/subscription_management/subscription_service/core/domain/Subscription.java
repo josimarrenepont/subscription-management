@@ -3,6 +3,7 @@ import com.subscription_management.subscription_service.core.domain.exception.In
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Subscription {
 
@@ -115,5 +116,17 @@ public class Subscription {
 
     public String getPaymentMethod() {
         return paymentMethod;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Subscription that)) return false;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
     }
 }
