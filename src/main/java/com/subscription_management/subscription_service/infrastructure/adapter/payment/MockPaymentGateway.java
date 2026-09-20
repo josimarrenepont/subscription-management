@@ -1,6 +1,5 @@
 package com.subscription_management.subscription_service.infrastructure.adapter.payment;
 
-import com.subscription_management.subscription_service.core.port.PaymentGatewayPort;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

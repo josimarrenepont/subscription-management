@@ -9,6 +9,7 @@ import com.subscription_management.subscription_service.infrastructure.adapter.r
 import com.subscription_management.subscription_service.infrastructure.adapter.repository.PlanRepository;
 import com.subscription_management.subscription_service.infrastructure.adapter.repository.SubscriptionRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class SubscriptionStorageAdapter implements SubscriptionStoragePort {
     }
 
     @Override
+    @Transactional
     public Subscription save(Subscription subscription) {
         CustomerEntity customerEntity = customerRepository.findById(subscription.getCustomer().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
@@ -40,12 +42,14 @@ public class SubscriptionStorageAdapter implements SubscriptionStoragePort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Subscription> findById(Long id) {
         return subscriptionRepository.findById(id)
                 .map(SubscriptionPersistenceMapper::toDomain);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         subscriptionRepository.deleteById(id);
     }
