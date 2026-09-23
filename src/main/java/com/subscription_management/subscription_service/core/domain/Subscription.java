@@ -15,7 +15,7 @@ public class Subscription {
     private LocalDateTime endDate;
     private LocalDateTime nextBillingDate;
     private BigDecimal lastPaymentAmount;
-    private String paymentMethod;
+    private final String paymentMethod;
 
     public Subscription(Customer customer, Plan plan, BigDecimal price, String paymentMethod){
         this.id = null;
@@ -25,8 +25,8 @@ public class Subscription {
         this.paymentMethod = paymentMethod;
         this.status = SubscriptionStatus.ACTIVE;
         this.startDate = LocalDateTime.now();
-        this.endDate = calculateEndDate(plan);
-        this.nextBillingDate = calculateNextBillingDate();
+        this.endDate = calculateEndDate(this.startDate, plan);
+        this.nextBillingDate = this.endDate;
     }
 
     public Subscription(Long id, Customer customer, Plan plan, SubscriptionStatus status,
@@ -62,7 +62,7 @@ public class Subscription {
 
             this.lastPaymentAmount = paymentAmount;
             this.endDate = this.endDate.plusMonths(plan.getDurationMonths());
-            this.nextBillingDate = calculateNextBillingDate();
+            this.nextBillingDate = this.endDate;
 
         }
 
@@ -74,12 +74,8 @@ public class Subscription {
             return this.status == SubscriptionStatus.ACTIVE && !isExpired();
         }
 
-        private LocalDateTime calculateNextBillingDate() {
-            return LocalDateTime.now().plusMonths(plan.getDurationMonths());
-        }
-
-        private LocalDateTime calculateEndDate(Plan plan){
-            return LocalDateTime.now().plusMonths(plan.getDurationMonths());
+        private LocalDateTime calculateEndDate(LocalDateTime startDate, Plan plan){
+            return startDate.plusMonths(plan.getDurationMonths());
         }
 
     public Long getId() {
